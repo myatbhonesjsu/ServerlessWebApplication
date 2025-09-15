@@ -13,7 +13,7 @@ def _response(status, body):
         'statusCode': status,
         'headers': {
             'Content-Type': 'application/json',
-            # Basic CORS; tighten to your domain in production
+            # Basic CORS headers
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': 'Content-Type',
             'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,PUT,DELETE'
@@ -53,7 +53,7 @@ def lambda_handler(event, context):
             return _response(200, resp['Item'])
 
         if method == 'PUT':
-            # Update by ID (fields in body except student_id)
+            # Update by ID 
             if not student_id:
                 return _response(400, {'error': 'student_id is required'})
             payload = json.loads(event.get('body') or '{}')
